@@ -1,33 +1,68 @@
 import {
   getBackgroundValue,
   BackgroundStyle,
-} from '@/app/utils/getBackgroundStyle';
-import { Button } from '../ui/button';
-import Link from 'next/link';
+} from '@/utils/getBackgroundStyle';
 
 type Props = {
+  /**
+   * Optional background style object used to apply dynamic backgrounds.
+   * If provided, the component will generate light and dark background
+   * styles based on the values returned from `getBackgroundValue()`.
+   */
   backgroundStyle?: BackgroundStyle;
-  children: React.ReactNode;
+  /**
+   * The content to be displayed inside the banner.
+   * This can be any valid React node such as text, elements, or components.
+   */
+  children?: React.ReactNode;
+  /**
+   * A fallback light mode text color (as a CSS color string).
+   * Used when dynamic color values are applied in light mode.
+   */
+  lightColor?: string;
+  /**
+   * A fallback dark mode text color (as a CSS color string).
+   * Used when dynamic color values are applied in dark mode.
+   */
+  darkColor?: string;
 };
 
-export default function TopBanner({ backgroundStyle, children }: Props) {
+/**
+ * TopBanner is a responsive banner component (visible on medium screens and up)
+ * that supports dynamic background styling and text color theming.
+ */
+export default function TopBanner({
+  backgroundStyle,
+  children,
+  lightColor,
+  darkColor,
+}: Props) {
+  const dynamicClass = backgroundStyle?.type
+    ? `dynamic-background ${backgroundStyle.type}`
+    : 'dynamic-background';
   return (
-    <>
-      {/* Skip link placed before everything else */}
-      <Button
-        className='sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:py-2 focus:px-4 focus-visible:ring-amber-600'
-        asChild>
-        <Link href='#main-content'>Skip to main content</Link>
-      </Button>
+    <div
+      className={`w-full h-12 hidden md:flex justify-end items-center ${dynamicClass}`}
+      style={
+        {
+          '--bg-style': getBackgroundValue(backgroundStyle).light,
+          '--bg-style-dark': getBackgroundValue(backgroundStyle).dark,
+        } as React.CSSProperties
+      }
+      data-testid="banner"
+    >
       <div
-        className='dynamic-background w-full h-12 hidden md:flex justify-end items-center'
+        className="px-10 font-secondary text-xl font-normal text-light-dynamic dark:text-dark-dynamic"
         style={
           {
-            '--bg-style': getBackgroundValue(backgroundStyle),
+            '--dynamic-color': lightColor ?? '#000000',
+            '--dynmic-dark-color': darkColor ?? '#FFFFFF',
           } as React.CSSProperties
-        }>
-        <p className='px-4'>{children}</p>
+        }
+        data-testid="children-container"
+      >
+        {children}
       </div>
-    </>
+    </div>
   );
 }

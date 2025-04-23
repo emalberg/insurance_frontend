@@ -37,6 +37,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-light-dynamic: var(--dynamic-color);
+  --color-dark-dynamic: var(--dynmic-dark-color);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -122,5 +124,32 @@
 }
 
 .dynamic-background {
-  background: var(--bg-style, transparent);
+  background: var(--primary);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.dynamic-background.color {
+  background-color: var(--bg-style, transparent);
+}
+
+.dark .dynamic-background.color {
+  background-color: var(--bg-style-dark, transparent);
+}
+
+.dynamic-background.gradient {
+  background-image: var(--bg-style, none);
+}
+
+.dark .dynamic-background.gradient {
+  background-image: var(--bg-style-dark, none);
+}
+
+.dynamic-background.image {
+  background-image: var(--bg-style, none);
+}
+
+.dark .dynamic-background.image {
+  background-image: var(--bg-style-dark, none);
 }

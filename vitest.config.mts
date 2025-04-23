@@ -11,6 +11,24 @@ export default defineConfig({
     globals: true,
     coverage: {
       enabled: true,
+      exclude: [
+        'node_modules/',
+        '.next/',
+        '.storybook/',
+        'html/',
+        'src/**/*.stories.*',
+        'src/**/*.story.*',
+        'dist/',
+        'build/',
+        '**/test-utils/**',
+
+        // config files
+        'eslint.config.mjs',
+        'next-env.d.ts',
+        'next.config.ts',
+        'postcss.config.mjs',
+        'vitest.config.*',
+      ],
     },
   },
 });
