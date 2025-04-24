@@ -37,12 +37,12 @@ export default function TopBanner({
   lightColor,
   darkColor,
 }: Props) {
-  const dynamicClass = backgroundStyle?.type
+  const dynamicBackground = backgroundStyle?.type
     ? `dynamic-background ${backgroundStyle.type}`
     : 'dynamic-background';
   return (
     <div
-      className={`w-full h-12 hidden md:flex justify-end items-center ${dynamicClass}`}
+      className={`w-full h-12 hidden md:flex justify-end items-center ${dynamicBackground}`}
       style={
         {
           '--bg-style': getBackgroundValue(backgroundStyle).light,

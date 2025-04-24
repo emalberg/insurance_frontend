@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Raleway, Roboto } from 'next/font/google';
 import './globals.css';
 import TopBanner from '../components/TopBanner/TopBanner';
+import SkipToMainContentButton from '@/components/SkipToMainContentButton/SkipToMainContentButton';
 
 const raleway = Raleway({
   variable: '--font-raleway',
@@ -26,11 +27,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body
-        className={`${raleway.variable} ${roboto_mono.variable} antialiased`}>
-        <TopBanner>1.800.945.3009</TopBanner>
-        {children}
+        className={`${raleway.variable} ${roboto_mono.variable} antialiased`}
+      >
+        <SkipToMainContentButton />
+        <header>
+          <TopBanner
+            darkColor="#FFFFFF"
+            lightColor="#FFFFFF"
+            backgroundStyle={{
+              type: 'gradient',
+              gradient_value:
+                'linear-gradient(270deg, #14819E 37%, #3CB0C7 100%)',
+              dark_gradient_value:
+                'linear-gradient(270deg, #14819E 37%, #3CB0C7 100%)',
+            }}
+          >
+            1.866.680.5143
+          </TopBanner>
+        </header>
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </body>
     </html>
   );
